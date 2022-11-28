@@ -1,0 +1,60 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""A drink"""
+interface Drink {
+  name: String!
+}
+
+type Flavor {
+  id: ID!
+  name: String!
+  coffees: [Coffee!]!
+}
+
+"""Coffee model"""
+type Coffee implements Drink {
+  name: String!
+
+  """
+  This is description of ID property, this is visible in GraphQL Playground and Schema
+  """
+  id: ID!
+  brand: String!
+  flavors: [Flavor!]!
+  createdAt: Date
+}
+
+"""Tea"""
+type Tea implements Drink {
+  name: String!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  drinks: [Drink!]!
+  coffees: [Coffee!]!
+  coffee(id: ID!): Coffee!
+}
+
+type Mutation {
+  createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
+  updateCoffee(id: ID!, updateCoffeeInput: UpdateCoffeeInput!): Coffee!
+  removeCoffee(id: ID!): Coffee!
+}
+
+"""Create coffee input"""
+input CreateCoffeeInput {
+  name: String!
+  brand: String!
+  flavors: [String!]!
+}
+
+input UpdateCoffeeInput {
+  name: String
+  brand: String
+  flavors: [String!]
+}
