@@ -8,7 +8,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Flavor } from './flavor.entity';
+import { Flavor } from '../coffee-flavours/entities/flavor.entity';
 
 @Entity()
 @ObjectType({ description: 'Coffee model', implements: () => Drink })

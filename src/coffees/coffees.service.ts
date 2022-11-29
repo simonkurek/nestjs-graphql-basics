@@ -14,7 +14,6 @@ export class CoffeesService {
     private readonly coffeesRepository: Repository<Coffee>,
     private readonly coffeeFlavoursService: CoffeeFlavoursService,
   ) {}
-
   async findAll() {
     return this.coffeesRepository.find();
   }
