@@ -7,8 +7,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { DateScalar } from './common/scalars/date.scalar';
-import { Tea } from './teas/entities/tea.entity';
 import { DrinksResolver } from './drinks/drinks.resolver';
+import { TeaModule } from './teas/tea.module';
+import { CommonModule } from './common/common.module';
+import { DrinksModule } from './drinks/drinks.module';
 
 @Module({
   imports: [
@@ -28,13 +30,16 @@ import { DrinksResolver } from './drinks/drinks.resolver';
       buildSchemaOptions: {
         numberScalarMode: 'integer',
         // dateScalarMode: 'timestamp',
-        orphanedTypes: [Tea],
+        // orphanedTypes: [Tea], types that are not used in any other type
       },
     }),
     CoffeesModule,
+    TeaModule,
+    CommonModule,
+    DrinksModule,
   ],
   controllers: [AppController],
   // datescalar should have dedicated module (common module or even scalars module)
-  providers: [AppService, DateScalar, DrinksResolver],
+  providers: [AppService],
 })
 export class AppModule {}
