@@ -1,39 +1,39 @@
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
-import { TeaService } from './tea.service';
+import { TeasService } from './teas.service';
 import { Tea } from './entities/tea.entity';
 import { CreateTeaInput } from './dto/create-tea.input';
 import { UpdateTeaInput } from './dto/update-tea.input';
 import { ParseIntPipe } from '@nestjs/common';
 
 @Resolver(() => Tea)
-export class TeaResolver {
-  constructor(private readonly teaService: TeaService) {}
+export class TeasResolver {
+  constructor(private readonly teasService: TeasService) {}
 
-  @Mutation(() => Tea)
+  @Mutation(() => Tea, { name: 'createTea' })
   create(@Args('createTeaInput') createTeaInput: CreateTeaInput) {
-    return this.teaService.create(createTeaInput);
+    return this.teasService.create(createTeaInput);
   }
 
-  @Query(() => [Tea], { name: 'tea' })
+  @Query(() => [Tea], { name: 'teas', nullable: true })
   findAll() {
-    return this.teaService.findAll();
+    return this.teasService.findAll();
   }
 
   @Query(() => Tea, { name: 'tea' })
   findOne(@Args('id', { type: () => ID }, ParseIntPipe) id: number) {
-    return this.teaService.findOne(id);
+    return this.teasService.findOne(id);
   }
 
-  @Mutation(() => Tea)
+  @Mutation(() => Tea, { name: 'updateTea' })
   updateTea(
     @Args('id', { type: () => ID }, ParseIntPipe) id: number,
     @Args('updateTeaInput') updateTeaInput: UpdateTeaInput,
   ) {
-    return this.teaService.update(id, updateTeaInput);
+    return this.teasService.update(id, updateTeaInput);
   }
 
-  @Mutation(() => Tea)
+  @Mutation(() => Tea, { name: 'removeTea' })
   remove(@Args('id', { type: () => ID }, ParseIntPipe) id: number) {
-    return this.teaService.remove(id);
+    return this.teasService.remove(id);
   }
 }

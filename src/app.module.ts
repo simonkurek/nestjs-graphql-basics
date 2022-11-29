@@ -6,9 +6,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
-import { DateScalar } from './common/scalars/date.scalar';
-import { DrinksResolver } from './drinks/drinks.resolver';
-import { TeaModule } from './teas/tea.module';
+import { TeasModule } from './teas/teas.module';
 import { CommonModule } from './common/common.module';
 import { DrinksModule } from './drinks/drinks.module';
 
@@ -34,12 +32,11 @@ import { DrinksModule } from './drinks/drinks.module';
       },
     }),
     CoffeesModule,
-    TeaModule,
+    TeasModule,
     CommonModule,
     DrinksModule,
   ],
   controllers: [AppController],
-  // datescalar should have dedicated module (common module or even scalars module)
   providers: [AppService],
 })
 export class AppModule {}

@@ -6,7 +6,6 @@ import { CoffeeFlavoursService } from './coffee-flavours/coffee-flavours.service
 import { CreateCoffeeInput } from './dto/create-coffee.input';
 import { UpdateCoffeeInput } from './dto/update-coffee.input';
 import { Coffee } from './entities/coffee.entity';
-import { Flavor } from './entities/flavor.entity';
 
 @Injectable()
 export class CoffeesService {

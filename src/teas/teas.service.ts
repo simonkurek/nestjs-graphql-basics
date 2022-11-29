@@ -6,13 +6,14 @@ import { UpdateTeaInput } from './dto/update-tea.input';
 import { Tea } from './entities/tea.entity';
 
 @Injectable()
-export class TeaService {
+export class TeasService {
   constructor(
     @InjectRepository(Tea) private readonly teaRepository: Repository<Tea>,
   ) {}
 
   async create(createTeaInput: CreateTeaInput) {
-    return await this.teaRepository.save(createTeaInput);
+    const tee = this.teaRepository.create(createTeaInput);
+    return this.teaRepository.save(tee);
   }
 
   async findAll() {

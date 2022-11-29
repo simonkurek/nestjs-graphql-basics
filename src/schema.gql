@@ -38,6 +38,7 @@ scalar Date
 type Query {
   coffees: [Coffee!]!
   coffee(id: ID!): Coffee!
+  teas: [Tea!]
   tea(id: ID!): Tea!
   drinks: [Drink!]!
 }
@@ -46,9 +47,9 @@ type Mutation {
   createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
   updateCoffee(id: ID!, updateCoffeeInput: UpdateCoffeeInput!): Coffee!
   removeCoffee(id: ID!): Coffee!
-  create(createTeaInput: CreateTeaInput!): Tea!
+  createTea(createTeaInput: CreateTeaInput!): Tea!
   updateTea(id: ID!, updateTeaInput: UpdateTeaInput!): Tea!
-  remove(id: ID!): Tea!
+  removeTea(id: ID!): Tea!
 }
 
 """Create coffee input"""

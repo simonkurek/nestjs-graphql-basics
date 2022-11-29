@@ -8,5 +8,6 @@ import { CoffeeFlavoursModule } from './coffee-flavours/coffee-flavours.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee]), CoffeeFlavoursModule],
   providers: [CoffeesResolver, CoffeesService],
+  exports: [CoffeesService],
 })
 export class CoffeesModule {}
