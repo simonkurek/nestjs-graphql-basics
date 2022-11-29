@@ -7,12 +7,6 @@ interface Drink {
   name: String!
 }
 
-type Flavor {
-  id: ID!
-  name: String!
-  coffees: [Coffee!]!
-}
-
 """Coffee model"""
 type Coffee implements Drink {
   name: String!
@@ -24,6 +18,12 @@ type Coffee implements Drink {
   brand: String!
   flavors: [Flavor!]!
   createdAt: Date
+}
+
+type Flavor {
+  id: ID!
+  name: String!
+  coffees: [Coffee!]!
 }
 
 """Tea"""

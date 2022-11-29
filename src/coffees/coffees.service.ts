@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserInputError } from 'apollo-server-express';
 import { Repository } from 'typeorm';
+import { CoffeeFlavoursService } from './coffee-flavours/coffee-flavours.service';
 import { CreateCoffeeInput } from './dto/create-coffee.input';
 import { UpdateCoffeeInput } from './dto/update-coffee.input';
 import { Coffee } from './entities/coffee.entity';
@@ -12,8 +13,7 @@ export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
     private readonly coffeesRepository: Repository<Coffee>,
-    @InjectRepository(Flavor)
-    private readonly flavorRepository: Repository<Flavor>,
+    private readonly coffeeFlavoursService: CoffeeFlavoursService,
   ) {}
 
   async findAll() {
@@ -30,7 +30,9 @@ export class CoffeesService {
 
   async create(createCoffeeInput: CreateCoffeeInput) {
     const flavors = await Promise.all(
-      createCoffeeInput.flavors.map((name) => this.preloadFlavorByName(name)),
+      createCoffeeInput.flavors.map((name) =>
+        this.coffeeFlavoursService.preloadFlavorByName(name),
+      ),
     );
     const coffee = this.coffeesRepository.create({
       ...createCoffeeInput,
@@ -43,7 +45,9 @@ export class CoffeesService {
     const flavors =
       updateCoffeeInput.flavors &&
       (await Promise.all(
-        updateCoffeeInput.flavors.map((name) => this.preloadFlavorByName(name)),
+        updateCoffeeInput.flavors.map((name) =>
+          this.coffeeFlavoursService.preloadFlavorByName(name),
+        ),
       ));
     const coffee = await this.coffeesRepository.preload({
       id,
@@ -59,15 +63,5 @@ export class CoffeesService {
   async remove(id: number) {
     const coffee = await this.findOne(id);
     return this.coffeesRepository.remove(coffee);
-  }
-
-  private async preloadFlavorByName(name: string): Promise<Flavor> {
-    const existingFlavor = await this.flavorRepository.findOne({
-      where: { name },
-    });
-    if (existingFlavor) {
-      return existingFlavor;
-    }
-    return this.flavorRepository.create({ name });
   }
 }
